@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 行业日报 · 5分钟看懂今天AI圈</title>
+<style>
+:root{
+  --bg:#07101f; --panel:#0d182b; --panel2:#101e34; --line:#203451;
+  --text:#eef5ff; --muted:#8ea3bf; --cyan:#55d9ff; --blue:#6d8cff;
+  --green:#54e0a3; --orange:#ffb45c; --shadow:0 24px 70px rgba(0,0,0,.28);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--text); font-family:Inter,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  background:
+    radial-gradient(circle at 78% 8%,rgba(72,132,255,.18),transparent 28rem),
+    radial-gradient(circle at 12% 42%,rgba(38,205,255,.08),transparent 25rem),
+    var(--bg);
+  min-height:100vh;
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.35;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:42px 42px;
+}
+.container{width:min(1180px,calc(100% - 48px));margin:auto;position:relative}
+header{padding:54px 0 32px;display:flex;justify-content:space-between;gap:28px;align-items:flex-end}
+.eyebrow{font-size:12px;letter-spacing:.22em;color:var(--cyan);font-weight:800;text-transform:uppercase;margin-bottom:13px}
+h1{font-size:clamp(42px,6vw,76px);line-height:.98;margin:0;letter-spacing:-.055em}
+.subtitle{font-size:18px;color:#b6c6dc;margin:18px 0 0}
+.date{padding:12px 16px;border:1px solid var(--line);border-radius:14px;background:rgba(13,24,43,.7);color:var(--muted);font-size:13px;white-space:nowrap}
+.hero{
+  border:1px solid #244064;border-radius:25px;padding:28px 30px;margin-bottom:25px;
+  background:linear-gradient(135deg,rgba(19,37,64,.92),rgba(10,21,38,.86));
+  box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.hero:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-80px;top:-100px;background:rgba(85,217,255,.09);filter:blur(2px)}
+.hero-label{display:flex;align-items:center;gap:10px;color:var(--cyan);font-weight:800;font-size:13px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan)}
+.hero p{max-width:900px;color:#c4d2e4;line-height:1.8;margin:13px 0 0;font-size:15px}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin:34px 0 17px}
+.section-head h2{font-size:21px;margin:0;letter-spacing:-.02em}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filter{
+  border:1px solid var(--line);background:rgba(13,24,43,.8);color:var(--muted);
+  border-radius:10px;padding:9px 15px;cursor:pointer;font-weight:700;transition:.2s;
+}
+.filter:hover{border-color:#456387;color:#fff}.filter.active{background:#eaf8ff;color:#07101f;border-color:#eaf8ff}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}
+.news-list{display:grid;gap:15px}
+.card{
+  position:relative;background:linear-gradient(145deg,rgba(16,30,52,.96),rgba(10,21,37,.96));
+  border:1px solid var(--line);border-radius:20px;padding:22px 23px;transition:.25s;
+}
+.card:hover{transform:translateY(-2px);border-color:#36577e;box-shadow:0 16px 40px rgba(0,0,0,.18)}
+.card.featured{padding:28px;border-color:#2d527c;background:linear-gradient(145deg,rgba(20,40,68,.98),rgba(11,24,43,.98))}
+.card.done{opacity:.7}
+.check{position:absolute;right:17px;top:16px;width:25px;height:25px;border-radius:50%;display:none;align-items:center;justify-content:center;background:var(--green);color:#062218;font-weight:900;font-size:15px}
+.card.done .check{display:flex}
+.meta{display:flex;align-items:center;gap:10px;margin-bottom:13px;padding-right:32px}
+.badge{font-size:11px;font-weight:800;padding:5px 9px;border-radius:7px}
+.high{background:rgba(255,120,120,.12);color:#ff9696;border:1px solid rgba(255,120,120,.22)}
+.medium{background:rgba(255,180,92,.12);color:var(--orange);border:1px solid rgba(255,180,92,.22)}
+.tag{font-size:12px;color:var(--muted)}
+.card h3{font-size:21px;line-height:1.4;margin:0 0 10px;letter-spacing:-.02em}
+.featured h3{font-size:28px}
+.card p{color:#9eb1ca;line-height:1.75;font-size:14px;margin:0 0 19px}
+.card-footer{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.source{font-size:12px;color:#7186a3}
+.read{
+  border:1px solid #2d5278;background:#12243d;color:#cfe1f6;border-radius:9px;
+  padding:8px 12px;font-weight:800;cursor:pointer;white-space:nowrap;transition:.2s
+}
+.read:hover{background:#193251}.done .read{background:rgba(84,224,163,.1);color:var(--green);border-color:rgba(84,224,163,.3)}
+.trend{
+  position:sticky;top:18px;background:rgba(13,24,43,.88);border:1px solid var(--line);
+  border-radius:20px;padding:21px;box-shadow:var(--shadow)
+}
+.trend h3{margin:0 0 5px;font-size:17px}.trend small{color:var(--muted)}
+.metric{padding:18px 0;border-bottom:1px solid #1b2b43}.metric:last-child{border-bottom:0}
+.metric-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#b6c6dc}
+.metric strong{font-size:25px;color:#fff}
+.bar{height:6px;background:#192a43;border-radius:10px;overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,var(--blue),var(--cyan))}
+footer{padding:42px 0 55px;color:#607693;text-align:center;font-size:12px}
+.empty{padding:35px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:18px}
+@media(max-width:800px){
+  .container{width:min(100% - 28px,620px)}
+  header{padding:34px 0 24px;display:block}.date{display:inline-block;margin-top:22px}
+  .subtitle{font-size:16px;line-height:1.5}
+  .hero{padding:22px}.section-head{display:block}.filters{margin-top:14px}
+  .layout{grid-template-columns:1fr}.trend{position:static;order:2}
+  .featured h3{font-size:23px}.card h3{font-size:19px}
+}
+@media(max-width:430px){
+  .container{width:calc(100% - 20px)}h1{font-size:43px}
+  .card,.card.featured{padding:19px}.card-footer{align-items:flex-end}
+  .source{max-width:52%;line-height:1.4}.read{padding:8px 10px}
+  .filter{padding:8px 12px}
+}
+</style>
+</head>
+<body>
+<main class="container">
+<header>
+  <div>
+    <div class="eyebrow">AI INDUSTRY · DAILY BRIEF</div>
+    <h1>AI 行业日报</h1>
+    <div class="subtitle">5分钟看懂今天AI圈发生了什么。</div>
+  </div>
+  <div class="date" id="date"></div>
+</header>
+
+<section class="hero">
+  <div class="hero-label"><span class="dot"></span> 今日重点摘要</div>
+  <p>模型能力继续向“可执行”演进：从更强的多模态与推理，到企业工作流中的智能代理，行业关注点正在从单纯追求参数规模转向真实生产力。同时，AI 基础设施与应用层竞争同步升温。</p>
+</section>
+
+<div class="section-head">
+  <h2>今日三大新闻</h2>
+  <div class="filters" role="group" aria-label="新闻重要程度筛选">
+    <button class="filter active" data-filter="all">全部</button>
+    <button class="filter" data-filter="high">高优先级</button>
+    <button class="filter" data-filter="medium">中优先级</button>
+  </div>
+</div>
+
+<div class="layout">
+  <section class="news-list" id="newsList">
+    <article class="card featured" data-priority="high">
+      <span class="check">✓</span>
+      <div class="meta"><span class="badge high">高优先级</span><span class="tag">Agent · 产业</span></div>
+      <h3>AI Agent 从“会回答”走向“能执行”，企业工作流成为新战场</h3>
+      <p>新一轮产品竞争开始聚焦任务拆解、工具调用、长期记忆与流程自动化。企业 AI 的关注点正在从聊天体验转向真实生产力。</p>
+      <div class="card-footer"><span class="source">AI Industry Brief · 今日重点</span><button class="read">阅读完成</button></div>
+    </article>
+
+    <article class="card" data-priority="high">
+      <span class="check">✓</span>
+      <div class="meta"><span class="badge high">高优先级</span><span class="tag">AI 安全 · 产业</span></div>
+      <h3>AI 发展速度引发新一轮安全讨论，行业对监管与风险控制出现分歧</h3>
+      <p>近期多家 AI 公司负责人公开讨论模型发展速度、第三方评估与安全协作机制，AI 安全再次成为产业和政策讨论的焦点。</p>
+      <div class="card-footer"><span class="source">Reuters / The Guardian · 09-16</span><button class="read">阅读完成</button></div>
+    </article>
+
+    <article class="card" data-priority="high">
+      <span class="check">✓</span>
+      <div class="meta"><span class="badge high">高优先级</span><span class="tag">AI 芯片 · 基础设施</span></div>
+      <h3>AI 基础设施热度延续，市场关注推理、企业 AI 与下一代算力需求</h3>
+      <p>近期市场讨论继续围绕 AI 基础设施投入展开，推理工作负载、企业 AI 和物理 AI 被视为值得关注的需求方向。</p>
+      <div class="card-footer"><span class="source">MarketWatch · 09-16</span><button class="read">阅读完成</button></div>
+    </article>
+
+    <article class="card" data-priority="high">
+      <span class="check">✓</span>
+      <div class="meta"><span class="badge high">高优先级</span><span class="tag">芯片 · 手机 AI</span></div>
+      <h3>联发科发布新一代旗舰移动平台，端侧生成式 AI 能力进一步提升</h3>
+      <p>联发科公布 Dimensity 9600 Pro 与 9600M，并强调端侧生成式 AI 性能提升；新平台采用先进制程，面向下一代高端智能手机。</p>
+      <div class="card-footer"><span class="source">Reuters · 09-15</span><button class="read">阅读完成</button></div>
+    </article>
+
+    <article class="card" data-priority="medium">
+      <span class="check">✓</span>
+      <div class="meta"><span class="badge medium">中优先级</span><span class="tag">企业 AI · Agent</span></div>
+      <h3>企业 AI 生态继续扩张，Agent 与云平台、数据和安全能力加速整合</h3>
+      <p>企业级 AI 产品正在从单一模型能力扩展到完整平台，Agent、数据、身份权限与安全治理逐渐成为一体化方案的重要组成部分。</p>
+      <div class="card-footer"><span class="source">WEF · 2026</span><button class="read">阅读完成</button></div>
+    </article>
+
+    <article class="card" data-priority="medium">
+      <span class="check">✓</span>
+      <div class="meta"><span class="badge medium">中优先级</span><span class="tag">模型 · 开源</span></div>
+      <h3>模型竞争进入密集迭代期，开源与闭源路线继续并行推进</h3>
+      <p>近期 OpenAI、Anthropic、Google、Meta 等主要实验室均有模型更新或产品动作，模型能力、价格、上下文和工具调用成为持续竞争的维度。</p>
+      <div class="card-footer"><span class="source">AI model updates · 09-07</span><button class="read">阅读完成</button></div>
+    </article>
+
+    <article class="card" data-priority="medium">
+      <span class="check">✓</span>
+      <div class="meta"><span class="badge medium">中优先级</span><span class="tag">AI 图像 · 多模态</span></div>
+      <h3>生成式视觉持续向更高质量、更快响应和更强可控性演进</h3>
+      <p>Google 在近期 AI 更新中继续推进图像生成与多模态能力，行业竞争从单纯“能生成”逐步转向一致性、分辨率、速度和工作流集成。</p>
+      <div class="card-footer"><span class="source">Google AI · 08-2026</span><button class="read">阅读完成</button></div>
+    </article>
+
+    <article class="card" data-priority="medium">
+      <span class="check">✓</span>
+      <div class="meta"><span class="badge medium">中优先级</span><span class="tag">物理 AI · 机器人</span></div>
+      <h3>Physical AI 成为产业新方向，机器人与现实世界任务成为应用热点</h3>
+      <p>AI 正从屏幕中的文本与图像任务进一步进入机器人、制造和物流等真实环境，对感知、推理、控制与实时算力提出新的要求。</p>
+      <div class="card-footer"><span class="source">AI News · 09-2026</span><button class="read">阅读完成</button></div>
+    </article>
+
+    <article class="card" data-priority="medium">
+      <span class="check">✓</span>
+      <div class="meta"><span class="badge medium">中优先级</span><span class="tag">AI 芯片 · 数据中心</span></div>
+      <h3>芯片厂商从单颗加速器竞争走向整机柜与全栈 AI 基础设施</h3>
+      <p>随着 Agent 工作负载增长，CPU、GPU、网络、存储和软件栈的协同优化越来越重要，AI 基础设施竞争正在向系统级演进。</p>
+      <div class="card-footer"><span class="source">Industry coverage · 09-2026</span><button class="read">阅读完成</button></div>
+    </article>
+
+    <article class="card" data-priority="medium">
+      <span class="check">✓</span>
+      <div class="meta"><span class="badge medium">中优先级</span><span class="tag">AI 安全 · 国际</span></div>
+      <h3>中美研究人员探索 AI 风险沟通，安全标准与国际协作受到关注</h3>
+      <p>围绕先进 AI 系统的风险，两国研究人员出现非正式交流；不同监管重点和技术竞争也使建立长期安全协作机制面临复杂环境。</p>
+      <div class="card-footer"><span class="source">Financial Times · 09-16</span><button class="read">阅读完成</button></div>
+    </article>
+  </section>
+
+  <aside class="trend">
+    <h3>今日趋势</h3><small>AI 产业观察 · 示意指标</small>
+    <div class="metric"><div class="metric-top"><span>Agent</span><strong>↑ 86</strong></div><div class="bar"><i style="width:86%"></i></div></div>
+    <div class="metric"><div class="metric-top"><span>AI 安全</span><strong>↑ 81</strong></div><div class="bar"><i style="width:81%"></i></div></div>
+    <div class="metric"><div class="metric-top"><span>推理算力</span><strong>↑ 78</strong></div><div class="bar"><i style="width:78%"></i></div></div>
+    <div class="metric"><div class="metric-top"><span>端侧 AI</span><strong>↑ 72</strong></div><div class="bar"><i style="width:72%"></i></div></div>
+    <div class="metric"><div class="metric-top"><span>物理 AI</span><strong>↑ 66</strong></div><div class="bar"><i style="width:66%"></i></div></div>
+  </aside>
+</div>
+<footer>AI 行业日报 · Demo Dashboard · 本页面为纯 HTML / CSS / JavaScript 单文件项目</footer>
+</main>
+
+<script>
+const dateEl = document.getElementById('date');
+const now = new Date();
+dateEl.textContent = now.toLocaleDateString('zh-CN', {year:'numeric', month:'long', day:'numeric', weekday:'long'});
+
+document.querySelectorAll('.read').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const card = btn.closest('.card');
+    const done = card.classList.toggle('done');
+    btn.textContent = done ? '已完成' : '阅读完成';
+    btn.setAttribute('aria-pressed', done);
+  });
+});
+
+const cards = [...document.querySelectorAll('.card')];
+const filters = document.querySelectorAll('.filter');
+filters.forEach(filter => {
+  filter.addEventListener('click', () => {
+    filters.forEach(x => x.classList.remove('active'));
+    filter.classList.add('active');
+    const target = filter.dataset.filter;
+    cards.forEach(card => {
+      card.style.display = target === 'all' || card.dataset.priority === target ? '' : 'none';
+    });
+  });
+});
+</script>
+</body>
+</html>
